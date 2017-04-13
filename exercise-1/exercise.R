@@ -10,7 +10,7 @@ install.packages('devtools')
 #library(fueleconomy)
 
 # You should have have access to the `vehicles` data.frame
-vehicles <- read.csv("~/Desktop/INFO 201/m11-dplyr/exercise-1/vehicles.csv")
+vehicles <- read.csv("~/Desktop/INFO 201/m11-dplyr/exercise-1/vehicles.csv", stringsAsFactors = FALSE)
 View(vehicles)
 
 # Create a data.frame of vehicles from 1997
@@ -27,12 +27,13 @@ worst.hwy.mpg <- two.wheel.20.miles$id[two.wheel.20.miles$hwy == min(two.wheel.2
 
 # Write a function that takes a `year` and a `make` as parameters, and returns 
 # The vehicle that gets the most hwy miles/gallon of vehicles of that make in that year
-most.hwy.mpg <- function(year, make) {
+YearMake <- function(year, make) {
   vehicles.year <- vehicles[vehicles$year == year & vehicles$make == make,]
-  return (vehicles.year$id)
+  id <- vehicles.year$id[vehicles.year$hwy == max(vehicles.year$hwy)]
+  return (id)
 }
 
 # What was the most efficient honda model of 1995?
-honda.1995 <- most.hwy.mpg(1995, 'Honda')
+honda.1995 <- YearMake(1995, 'Honda')
 
 
